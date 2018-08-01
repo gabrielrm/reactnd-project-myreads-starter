@@ -53,6 +53,7 @@ class Search extends Component {
         </div>
         <div className="search-books-results">
           <div className="feedback">
+            {/* display number of books found on search */}
             {booksFound.length === 0 ? (
               <span />
             ) : (
