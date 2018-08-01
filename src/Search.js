@@ -28,6 +28,9 @@ class Search extends Component {
   }
 
   render() {
+    const { books, moveBook } = this.props;
+    const { query, booksFound } = this.state;
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -43,20 +46,27 @@ class Search extends Component {
               placeholder="Search by title or author"
               // update query on every input change
               onChange={event => this.updateQuery(event.target.value)}
-              value={this.state.query}
+              value={query}
             />
 
           </div>
         </div>
         <div className="search-books-results">
+          <div className="feedback">
+            {booksFound.length === 0 ? (
+              <span />
+            ) : (
+              <span>Found {booksFound.length}</span>
+            )}
+          </div>
           <ol className="books-grid">
             {/* display books found on search */}
-            {this.state.booksFound.map(bookFound => {
+            {booksFound.map(bookFound => {
               // filter result books not assigned to shelves
               // to default display select "None"
               let shelf = "none";
 
-              this.props.books.map(
+              books.map(
                 book => (book.id === bookFound.id
                   ? (shelf = book.shelf)
                   : "")
@@ -67,7 +77,7 @@ class Search extends Component {
                     // pass bookFound as props in Book
                     book={bookFound}
                     // allow to move book on selected shelf
-                    moveBook={this.props.moveBook}
+                    moveBook={moveBook}
                     // display shelf where book is
                     onShelf={shelf}
                   />

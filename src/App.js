@@ -29,13 +29,15 @@ class BooksApp extends React.Component {
   };
 
   render() {
+    const { books } = this.state;
+
     return (
       <div className="app">
         <Route
           exact path="/"
           render={() => (
             <Main
-              books={this.state.books}
+              books={books}
               moveBook={this.moveBook}
             />
           )}
@@ -44,7 +46,7 @@ class BooksApp extends React.Component {
           path="/search"
           render={() => (
             <Search
-              books={this.state.books}
+              books={books}
               moveBook={this.moveBook}
             />
           )}

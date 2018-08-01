@@ -2,14 +2,16 @@ import React, { Component } from "react";
 
 class Book extends Component {
   render() {
+    const { book, moveBook, onShelf } = this.props;
+
     return (
       <div className="book">
         <div className="book-top">
           <div className="book-cover"
             style={{
               width: 128, height: 193,
-              backgroundImage: `url(${this.props.book.imageLinks !== undefined
-                ? this.props.book.imageLinks.thumbnail
+              backgroundImage: `url(${book.imageLinks !== undefined
+                ? book.imageLinks.thumbnail
                 : ""
               })`
             }}
@@ -17,8 +19,8 @@ class Book extends Component {
           <div className="book-shelf-changer">
             {/* move book to different shelf */}
             <select
-              onChange={event => this.props.moveBook(this.props.book, event.target.value)}
-              value={this.props.onShelf}
+              onChange={event => moveBook(book, event.target.value)}
+              value={onShelf}
             >
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
@@ -28,8 +30,8 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{this.props.book.title}</div>
-        <div className="book-authors">{this.props.book.authors}</div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
     );
   }

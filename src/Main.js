@@ -6,6 +6,7 @@ class Main extends Component {
   render() {
     const selectShelf = ["currentlyReading", "wantToRead", "read"];
     const shelfTitle = ["Currently Reading", "Want To Read", "Read"];
+    const { books, moveBook } = this.props;
 
     return (
       <div className="list-books">
@@ -24,7 +25,7 @@ class Main extends Component {
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       {/* dynamycally add books on shelves */}
-                      {this.props.books
+                      {books
                         // filtered by shelf
                         .filter(book => book.shelf === selectShelf[id])
                         .map(book => (
@@ -32,7 +33,7 @@ class Main extends Component {
                             <Book
                               book={book}
                               onShelf={selectShelf[id]}
-                              moveBook={this.props.moveBook}
+                              moveBook={moveBook}
                             />
                           </li>
                         ))}
