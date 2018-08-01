@@ -23,7 +23,7 @@ class BooksApp extends React.Component {
         <Route
           exact path="/"
           render={() => (
-            <Main />
+            <Main books={this.state.books} />
           )}
         />
         <Route

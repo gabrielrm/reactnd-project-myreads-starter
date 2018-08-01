@@ -23,9 +23,18 @@ class Main extends Component {
                   <h2 className="bookshelf-title">{shelfTitle[id]}</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                      <li>
-                        <Book />
-                      </li>
+                      {/* dynamycally add books on shelves */}
+                      {this.props.books
+                        // filtered by shelf
+                        .filter(book => book.shelf === shelf[id])
+                        .map(book => (
+                          <li key={book.id}>
+                            <Book
+                              book={book}
+                              onShelf={shelf[id]}
+                            />
+                          </li>
+                        ))}
                     </ol>
                   </div>
                 </div>
