@@ -51,15 +51,29 @@ class Search extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {/* display books found on search */}
-            {this.state.booksFound.map(bookFound => (
+            {this.state.booksFound.map(bookFound => {
+              // filter result books not assigned to shelves
+              // to default display select "None"
+              let shelf = "none";
+
+              this.props.books.map(
+                book => (book.id === bookFound.id
+                  ? (shelf = book.shelf)
+                  : "")
+              );
+              return (
                 <li key={bookFound.id}>
                   <Book
                     // pass bookFound as props in Book
                     book={bookFound}
+                    // allow to move book on selected shelf
+                    moveBook={this.props.moveBook}
+                    // display shelf where book is
+                    onShelf={shelf}
                   />
                 </li>
-              ))
-            }
+              );
+            })}
           </ol>
         </div>
       </div>

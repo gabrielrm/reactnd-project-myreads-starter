@@ -4,7 +4,7 @@ import Book from "./Book";
 
 class Main extends Component {
   render() {
-    const shelf = ["currentlyReading", "wantToRead", "read"];
+    const selectShelf = ["currentlyReading", "wantToRead", "read"];
     const shelfTitle = ["Currently Reading", "Want To Read", "Read"];
 
     return (
@@ -15,7 +15,7 @@ class Main extends Component {
 
         <div className="list-books-content">
           {/* displaying shelves */}
-          {shelf.map((shelf, id) => {
+          {selectShelf.map((shelf, id) => {
             return (
               <div className="shelves" key={id}>
                 <div className="bookshelf">
@@ -26,12 +26,12 @@ class Main extends Component {
                       {/* dynamycally add books on shelves */}
                       {this.props.books
                         // filtered by shelf
-                        .filter(book => book.shelf === shelf[id])
+                        .filter(book => book.shelf === selectShelf[id])
                         .map(book => (
                           <li key={book.id}>
                             <Book
                               book={book}
-                              onShelf={shelf[id]}
+                              onShelf={selectShelf[id]}
                               moveBook={this.props.moveBook}
                             />
                           </li>
