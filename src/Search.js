@@ -1,7 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom"
+import * as BooksAPI from "./BooksAPI";
+import Book from "./Book";
 
 class Search extends Component {
+  state = {
+    query: "",
+    booksFound: []
+  }
+  // update query
+  updateQuery = (query) => {
+    this.setState({query})
+    // put search result of query in booksFound and refresh
+    BooksAPI.search(query).then(booksFound => {
+      this.setState({booksFound})
+    })
+  }
+
   render() {
     return (
       <div className="search-books">
@@ -10,20 +25,32 @@ class Search extends Component {
             Close
           </Link>
           <div className="search-books-input-wrapper">
-            {/*
-              NOTES: The search from BooksAPI is limited to a particular set of search terms.
-              You can find these search terms here:
-              https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
 
-              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-              you don't find a specific author or title. Every search is limited by search terms.
-            */}
-            <input type="text" placeholder="Search by title or author"/>
+            <input
+              type="text"
+              // put cursor on input field
+              autoFocus={true}
+              placeholder="Search by title or author"
+              // update query on every input change
+              onChange={event => this.updateQuery(event.target.value)}
+              value={this.state.query}
+            />
 
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            {/* display books found on search */}
+            {this.state.booksFound.map(bookFound => (
+                <li key={bookFound.id}>
+                  <Book
+                    // pass bookFound as props in Book
+                    book={bookFound}
+                  />
+                </li>
+              ))
+            }
+          </ol>
         </div>
       </div>
     );
