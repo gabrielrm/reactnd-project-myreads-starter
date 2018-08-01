@@ -32,6 +32,7 @@ class Main extends Component {
                             <Book
                               book={book}
                               onShelf={shelf[id]}
+                              moveBook={this.props.moveBook}
                             />
                           </li>
                         ))}
