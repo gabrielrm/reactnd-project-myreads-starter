@@ -11,10 +11,20 @@ class Search extends Component {
   // update query
   updateQuery = (query) => {
     this.setState({query})
-    // put search result of query in booksFound and refresh
-    BooksAPI.search(query).then(booksFound => {
-      this.setState({booksFound})
-    })
+    // solve emptying search string error
+    if (!query) {
+      this.setState({ booksFound: [] });
+    } else {
+      // put search result of query in booksFound and refresh
+      BooksAPI.search(query).then(booksFound => {
+        // solve books not found error
+        if (booksFound.error) {
+          this.setState({ booksFound: [] });
+        } else {
+          this.setState({booksFound})
+        }
+      })
+    }
   }
 
   render() {
