@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom"
+import { debounce } from "throttle-debounce";
 import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
 
@@ -10,7 +11,8 @@ class Search extends Component {
   }
   // update query
   updateQuery = (query) => {
-    this.setState({query})
+    // add debounce
+    debounce(300, this.setState({ query }));
     // solve emptying search string error
     if (!query) {
       this.setState({ booksFound: [] });
@@ -54,11 +56,10 @@ class Search extends Component {
         <div className="search-books-results">
           <div className="feedback">
             {/* display number of books found on search */}
-            {booksFound.length === 0 ? (
-              <span />
-            ) : (
-              <span>Found {booksFound.length}</span>
-            )}
+            {booksFound.length === 0
+              ? ( <span /> )
+              : ( <span>Found {booksFound.length}</span> )
+            }
           </div>
           <ol className="books-grid">
             {/* display books found on search */}
