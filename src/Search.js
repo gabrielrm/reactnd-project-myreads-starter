@@ -65,13 +65,9 @@ class Search extends Component {
             {booksFound.map(bookFound => {
               // filter result books not assigned to shelves
               // to default display select "None"
-              let shelf = "none";
+              const userBook = books.find(book => book.id === bookFound.id);
+              const shelf = userBook ? userBook.shelf : "none";
 
-              books.map(
-                book => (book.id === bookFound.id
-                  ? (shelf = book.shelf)
-                  : "")
-              );
               return (
                 <li key={bookFound.id}>
                   <Book
